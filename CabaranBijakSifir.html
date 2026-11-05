@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CABARAN BIJAK SIFIR</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --primary: #ff4757;
+            --success: #2ed573;
+            --danger: #ff4757;
+            --warning: #ffa502;
+        }
+        
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Fredoka', cursive, sans-serif; 
+        }
+        
+        body {
+            background: linear-gradient(180deg, #70a1ff 0%, #a8e6cf 60%, #56ab2f 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .bg-bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            animation: float 6s infinite ease-in-out;
+            z-index: 0;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-25px); }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.96);
+            width: 100%;
+            max-width: 580px;
+            padding: 25px;
+            border-radius: 35px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            border: 6px solid #ffbe76;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .bear-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .bear-avatar {
+            font-size: 4rem;
+            line-height: 1;
+            filter: drop-shadow(0 8px 5px rgba(0,0,0,0.2));
+            animation: bearWiggle 3s infinite ease-in-out;
+        }
+        @keyframes bearWiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        .bear-head-bubble {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffffff;
+            border: 4px solid #ffbe76;
+            padding: 5px 15px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #d35400;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            white-space: nowrap;
+        }
+        .bear-head-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 8px 8px 0;
+            border-style: solid;
+            border-color: #ffbe76 transparent;
+            display: block;
+            width: 0;
+        }
+
+        /* Kelas khas untuk kepala beruang warna biru & huruf besar */
+        .bear-blue-text {
+            color: #1e90ff !important;
+        }
+
+        h1 { 
+            font-size: 2.2rem; 
+            margin-bottom: 5px; 
+            color: #ff4757; 
+            text-shadow: 2px 2px 0px #ffeaa7; 
+        }
+        p { color: #475569; margin-bottom: 15px; font-weight: 600; font-size: 1rem; }
+        
+        .screen { display: none; }
+        .screen.active { display: block; }
+        
+        .parent-panel {
+            background: #fff9e6;
+            padding: 15px;
+            border-radius: 22px;
+            margin-bottom: 15px;
+            border: 3px dashed #f39c12;
+            text-align: left;
+        }
+        .parent-panel h3 {
+            color: #e67e22;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .input-group { margin-bottom: 10px; }
+        .input-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 700;
+            color: #2c3e50;
+            font-size: 0.9rem;
+        }
+        .input-group textarea, .input-group select, .input-group input {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 14px;
+            border: 3px solid #70a1ff;
+            background: white;
+            color: #2c3e50;
+            font-size: 0.95rem;
+            font-weight: 700;
+            outline: none;
+            resize: vertical;
+            min-height: 45px;
+        }
+        .input-group textarea { min-height: 80px; }
+
+        .grid-sifir {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        button {
+            background: #3742fa;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 18px;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #1e90ff;
+            transition: all 0.1s;
+        }
+        button:active { transform: translateY(4px); box-shadow: 0 1px 0 #1e90ff; }
+        .btn-full { 
+            width: 100%; 
+            margin-top: 10px; 
+            background: #2ed573; 
+            box-shadow: 0 5px 0 #26af5f; 
+            font-size: 1.2rem;
+        }
+        .btn-stop {
+            background: #ff4757;
+            box-shadow: 0 5px 0 #d63031;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            padding: 8px;
+            width: auto;
+            display: inline-block;
+        }
+        .btn-stop:active {
+            box-shadow: 0 1px 0 #d63031;
+        }
+
+        .live-status-box {
+            background: #e0fcf5;
+            border: 2px solid #20bf6b;
+            padding: 10px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: #0d8350;
+            font-size: 1.1rem;
+        }
+
+        .timer-bar-container {
+            width: 100%;
+            height: 16px;
+            background: #dfe4ea;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 3px solid #2d3436;
+            margin-bottom: 15px;
+        }
+        .timer-bar {
+            width: 100%;
+            height: 100%;
+            background: #2ed573;
+            transition: width 0.1s linear;
+        }
+
+        .question-card {
+            background: #fff3bf;
+            border: 5px solid #ffa502;
+            border-radius: 25px;
+            padding: 15px;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #2d3436;
+            margin-bottom: 15px;
+        }
+
+        .choices-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .choice-btn {
+            background: #70a1ff;
+            font-size: 1.8rem;
+            padding: 14px;
+            border-radius: 20px;
+            box-shadow: 0 6px 0 #1e90ff;
+            color: white;
+        }
+        
+        .correct { background: #2ed573 !important; box-shadow: 0 6px 0 #26af5f !important; color: white !important; }
+        .wrong { background: #ff4757 !important; box-shadow: 0 6px 0 #d63031 !important; color: white !important; }
+
+        .result-card {
+            background: #f1f2f6;
+            padding: 15px;
+            border-radius: 20px;
+            margin: 15px 0;
+            border: 3px solid #70a1ff;
+            max-height: 220px;
+            overflow-y: auto;
+            text-align: left;
+        }
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 10px;
+            border-bottom: 1px solid #ddd;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .certificate-box {
+            background: #fffdf0;
+            border: 10px double #d4af37;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            position: relative;
+            color: #2c3e50;
+            text-align: center;
+        }
+        .cert-header { font-size: 1.3rem; color: #b8860b; font-weight: 700; text-transform: uppercase; }
+        .cert-title { font-family: 'Great Vibes', cursive; font-size: 2.6rem; color: #d4af37; margin: 3px 0; }
+        .cert-name { font-size: 1.6rem; color: #e74c3c; border-bottom: 2px solid #d4af37; display: inline-block; padding: 0 15px; margin: 8px 0; }
+        .cert-desc { font-size: 0.95rem; color: #555; }
+        .cert-stamp { font-size: 2.5rem; position: absolute; bottom: 10px; right: 15px; opacity: 0.8; }
+
+        .colorful-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            white-space: nowrap;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+            background: linear-gradient(45deg, #ff4757, #ffa502, #2ed573, #0ea5e9, #8854d0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-credit {
+            margin-top: 15px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-bubble" style="width: 90px; height: 90px; top: 8%; left: 6%;"></div>
+<div class="bg-bubble" style="width: 130px; height: 130px; top: 55%; left: 82%;"></div>
+
+<div class="container">
+    <div class="bear-container">
+        <div id="bear-head-bubble" class="bear-head-bubble">Jom Ingat Sifir! 🐻</div>
+        <div class="bear-avatar">🐻</div>
+    </div>
+
+    <!-- SKRIN UTAMA / TETAPAN -->
+    <div id="menu-screen" class="screen active">
+        <h1>CABARAN BIJAK SIFIR</h1>
+        <p>Pilih Mod Permainan dan Masukkan Nama Pelajar</p>
+        
+        <div class="parent-panel">
+            <div class="input-group">
+                <label for="mode-select">🎮 Mod Permainan:</label>
+                <select id="mode-select" onchange="toggleModeInputs()">
+                    <option value="individu">Mod Individu</option>
+                    <option value="battle" selected>Pertandingan Bijak Sifir (Battle 2-100 Orang)</option>
+                </select>
+            </div>
+            
+            <div class="input-group" id="individual-name-group" style="display: none;">
+                <label for="single-name-input">👤 Nama Pelajar:</label>
+                <input type="text" id="single-name-input" placeholder="Masukkan nama..." value="Amni">
+            </div>
+
+            <div class="input-group" id="battle-names-group">
+                <label>👥 Masukkan Nama Pelajar (1 Nama Setiap Baris):</label>
+                <textarea id="students-input" placeholder="Amni&#10;Arif&#10;Atiqah">Amni
+Arif
+Atiqah</textarea>
+            </div>
+
+            <div class="input-group">
+                <label for="timer-select">⏱️ Masa Setiap Soalan:</label>
+                <select id="timer-select">
+                    <option value="3">3 Saat (Cemerlang ⚡)</option>
+                    <option value="5" selected>5 Saat (Sangat Baik 🎯)</option>
+                    <option value="10">10 Saat (Baik 😊)</option>
+                    <option value="15">15 Saat (Memuaskan 🎈)</option>
+                </select>
+            </div>
+        </div>
+
+        <p>👇 Pilih Sifir </p>
+        <div class="grid-sifir" id="sifir-buttons"></div>
+    </div>
+
+    <!-- SKRIN PERMAINAN -->
+    <div id="game-screen" class="screen">
+        <button class="btn-stop" onclick="stopGame()">🛑 Henti / Keluar</button>
+
+        <div class="live-status-box" id="live-status">
+            Soalan <span id="current-q-num">1</span>/10 (Sifir: <span id="active-sifir-label">1</span>)
+        </div>
+
+        <div class="timer-bar-container">
+            <div id="timer-bar" class="timer-bar"></div>
+        </div>
+        
+        <div class="question-card" id="question-box">2 × 3 = ?</div>
+        <div class="choices-grid" id="choices-container"></div>
+    </div>
+
+    <!-- SKRIN KEPUTUSAN & SIJIL -->
+    <div id="result-screen" class="screen">
+        <h2 class="colorful-title">🏆 KEPUTUSAN CABARAN BIJAK SIFIR 🏆</h2>
+        <p id="winner-announcement" style="font-weight: 700; color: #e74c3c; font-size: 1.1rem; margin-top: 5px;"></p>
+        
+        <div class="result-card" id="leaderboard-list"></div>
+
+        <!-- PAPARAN SIJIL DI SKRIN -->
+        <div id="certificates-print-area"></div>
+
+        <button class="btn-full" onclick="showMenu()">🔄 Main Semula</button>
+    </div>
+</div>
+
+<div class="footer-credit">Design by: Abdul Alim Abdullah</div>
+
+<script>
+    const sifirButtonsGrid = document.getElementById('sifir-buttons');
+    const menuScreen = document.getElementById('menu-screen');
+    const gameScreen = document.getElementById('game-screen');
+    const resultScreen = document.getElementById('result-screen');
+    
+    const modeSelect = document.getElementById('mode-select');
+    const singleNameInput = document.getElementById('single-name-input');
+    const studentsInput = document.getElementById('students-input');
+    const individualNameGroup = document.getElementById('individual-name-group');
+    const battleNamesGroup = document.getElementById('battle-names-group');
+    const timerSelect = document.getElementById('timer-select');
+    const bearHeadBubble = document.getElementById('bear-head-bubble');
+    const currentQNumSpan = document.getElementById('current-q-num');
+    const activeSifirLabel = document.getElementById('active-sifir-label');
+
+    const questionBox = document.getElementById('question-box');
+    const choicesContainer = document.getElementById('choices-container');
+    const timerBar = document.getElementById('timer-bar');
+
+    let students = [];
+    let currentSifir = 1;
+    let gameMode = 'battle';
+    let totalQuestions = 10;
+    let currentQIndex = 0;
+    let currentQuestions = [];
+    let selectedTimeInSeconds = 5;
+    let totalTicks = 50; 
+    let timerInterval;
+    let timeLeft = 0;
+    let isAnswered = false;
+
+    function toggleModeInputs() {
+        gameMode = modeSelect.value;
+        if (gameMode === 'individu') {
+            individualNameGroup.style.display = 'block';
+            battleNamesGroup.style.display = 'none';
+        } else {
+            individualNameGroup.style.display = 'none';
+            battleNamesGroup.style.display = 'block';
+        }
+    }
+
+    for (let i = 1; i <= 9; i++) {
+        const btn = document.createElement('button');
+        btn.innerText = `Sifir ${i}`;
+        btn.onclick = () => validateAndStart(i);
+        sifirButtonsGrid.appendChild(btn);
+    }
+
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playVictoryFanfare() {
+        if (!audioCtx) return;
+        if (audioCtx.state === 'suspended') { audioCtx.resume(); }
+
+        const notes = [523.25, 659.25, 783.99, 1046.50]; 
+        notes.forEach((freq, index) => {
+            let now = audioCtx.currentTime + (index * 0.15);
+            let osc = audioCtx.createOscillator();
+            let gain = audioCtx.createGain();
+
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, now);
+            gain.gain.setValueAtTime(0.2, now);
+            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.3);
+        });
+    }
+
+    function announceWinners(topNames) {
+        if (!('speechSynthesis' in window)) return;
+        setTimeout(() => {
+            let msgText = `Syabas dan tahniah kepada juara kita: ${topNames.join(', ')}`;
+            let utterance = new SpeechSynthesisUtterance(msgText);
+            utterance.lang = 'ms-MY';
+            utterance.rate = 0.95;
+            window.speechSynthesis.speak(utterance);
+        }, 800);
+    }
+
+    function validateAndStart(sifirType) {
+        gameMode = modeSelect.value;
+        selectedTimeInSeconds = parseInt(timerSelect.value);
+        totalTicks = selectedTimeInSeconds * 10;
+
+        if (gameMode === 'individu') {
+            let nameVal = singleNameInput.value.trim();
+            if (!nameVal) {
+                alert("Sila masukkan nama pelajar! 😊");
+                singleNameInput.focus();
+                return;
+            }
+            students = [{ name: nameVal, score: 0 }];
+        } else {
+            let rawText = studentsInput.value.trim();
+            let namesArray = rawText.split('\n').map(n => n.trim()).filter(n => n.length > 0);
+
+            if (namesArray.length < 2) {
+                alert("Sila masukkan sekurang-kurangnya 2 nama pelajar untuk mod battle! 😊");
+                return;
+            }
+            students = namesArray.map(name => ({ name: name, score: 0 }));
+        }
+
+        startGame(sifirType);
+    }
+
+    function showMenu() {
+        if ('speechSynthesis' in window) { window.speechSynthesis.cancel(); }
+        clearInterval(timerInterval);
+        bearHeadBubble.innerText = "Jom Ingat Sifir! 🐻";
+        bearHeadBubble.classList.remove('bear-blue-text'); // Reset warna asal
+        menuScreen.classList.add('active');
+        gameScreen.classList.remove('active');
+        resultScreen.classList.remove('active');
+    }
+
+    function stopGame() {
+        if (confirm("Adakah anda pasti mahu hentikan permainan dan kembali ke menu utama?")) {
+            showMenu();
+        }
+    }
+
+    function startGame(sifirType) {
+        currentSifir = sifirType;
+        currentQIndex = 0;
+        students.forEach(s => s.score = 0);
+
+        generateQuestions();
+        menuScreen.classList.remove('active');
+        gameScreen.classList.add('active');
+        loadQuestion();
+    }
+
+    function generateQuestions() {
+        currentQuestions = [];
+        let multipliers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].sort(() => Math.random() - 0.5);
+
+        for (let i = 0; i < totalQuestions; i++) {
+            let num1 = currentSifir;
+            let num2 = multipliers[i];
+            currentQuestions.push({ num1, num2, answer: num1 * num2 });
+        }
+    }
+
+    function loadQuestion() {
+        if (currentQIndex >= totalQuestions) {
+            endGame();
+            return;
+        }
+
+        isAnswered = false;
+        currentQNumSpan.innerText = currentQIndex + 1;
+        activeSifirLabel.innerText = `Sifir ${currentSifir}`;
+
+        const q = currentQuestions[currentQIndex];
+        questionBox.innerText = `${q.num1} × ${q.num2} = ?`;
+        bearHeadBubble.innerText = `Soalan ${currentQIndex + 1}`;
+        bearHeadBubble.classList.remove('bear-blue-text'); // Pastikan teks semasa soalan warna asal
+
+        let choices = [q.answer];
+        while (choices.length < 4) {
+            let wrongAns = q.answer + (Math.floor(Math.random() * 10) - 5);
+            if (wrongAns >= 1 && wrongAns <= 100 && !choices.includes(wrongAns)) {
+                choices.push(wrongAns);
+            }
+        }
+        choices.sort(() => Math.random() - 0.5);
+
+        choicesContainer.innerHTML = '';
+        choices.forEach(ans => {
+            const btn = document.createElement('button');
+            btn.className = 'choice-btn';
+            btn.innerText = ans;
+            btn.onclick = () => handleAnswerSelection(ans, q.answer, btn);
+            choicesContainer.appendChild(btn);
+        });
+
+        startTimer();
+    }
+
+    function startTimer() {
+        clearInterval(timerInterval);
+        timeLeft = totalTicks;
+        timerBar.style.width = '100%';
+        timerBar.style.background = '#2ed573';
+
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            let percentage = (timeLeft / totalTicks) * 100;
+            timerBar.style.width = `${percentage}%`;
+
+            if (percentage <= 30) timerBar.style.background = '#ff4757';
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                handleTimeout();
+            }
+        }, 100);
+    }
+
+    function handleAnswerSelection(selected, correct, btnElement) {
+        if (isAnswered) return;
+        isAnswered = true;
+        clearInterval(timerInterval);
+
+        const allBtns = choicesContainer.querySelectorAll('.choice-btn');
+        allBtns.forEach(b => {
+            let bVal = parseInt(b.innerText);
+            if (bVal === correct) {
+                b.classList.add('correct');
+            } else if (bVal === selected) {
+                b.classList.add('wrong');
+            }
+        });
+
+        students.forEach(s => {
+            if (selected === correct) s.score += 10;
+        });
+
+        setTimeout(() => {
+            currentQIndex++;
+            loadQuestion();
+        }, 900);
+    }
+
+    function handleTimeout() {
+        if (isAnswered) return;
+        isAnswered = true;
+
+        const q = currentQuestions[currentQIndex];
+        const allBtns = choicesContainer.querySelectorAll('.choice-btn');
+        allBtns.forEach(b => {
+            if (parseInt(b.innerText) === q.answer) {
+                b.classList.add('correct');
+            }
+        });
+
+        setTimeout(() => {
+            currentQIndex++;
+            loadQuestion();
+        }, 900);
+    }
+
+    function endGame() {
+        gameScreen.classList.remove('active');
+        resultScreen.classList.add('active');
+
+        // Tukar teks atas kepala bear kepada "KEPUTUSAN ANDA!!!" dan warnakan Biru
+        bearHeadBubble.innerText = "KEPUTUSAN ANDA!!!";
+        bearHeadBubble.classList.add('bear-blue-text');
+
+        students.sort((a, b) => b.score - a.score);
+
+        const winnerAnnounce = document.getElementById('winner-announcement');
+        const leaderboardList = document.getElementById('leaderboard-list');
+        const certPrintArea = document.getElementById('certificates-print-area');
+
+        certPrintArea.innerHTML = '';
+
+        if (gameMode === 'individu') {
+            let student = students[0];
+            leaderboardList.innerHTML = `
+                <h3 style="margin-bottom: 8px; color: #2c3e50;">📊 Keputusan Individu:</h3>
+                <div class="leaderboard-item">
+                    <span>${student.name}</span>
+                    <span style="color: #27ae60;">${student.score} / 100 Markah</span>
+                </div>
+            `;
+
+            if (student.score === 100) {
+                winnerAnnounce.innerText = `🎉 TAHNIAH! Anda mendapat 100 markah penuh!`;
+                certPrintArea.innerHTML = `
+                    <div class="certificate-box">
+                        <div class="cert-header">Sijil Penghargaan Cemerlang</div>
+                        <div class="cert-title">Juara Sifir ${currentSifir}</div>
+                        <div class="cert-desc">Dengan ini diperakukan bahawa</div>
+                        <div class="cert-name">${student.name}</div>
+                        <div class="cert-desc" style="margin-top: 5px;">telah berjaya mendapat <b>100 markah</b> dalam <b>Cabaran Sifir ${currentSifir}</b>.</div>
+                        <div style="margin-top: 15px; font-size: 0.8rem; color: #7f8c8d;">Cabaran Bijak Sifir</div>
+                        <div class="cert-stamp">🏆</div>
+                    </div>
+                `;
+                playVictoryFanfare();
+                announceWinners([student.name]);
+                confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 } });
+            } else {
+                winnerAnnounce.innerText = `💪 Usaha Lagi! Anda perlu 100 markah untuk layak mendapat sijil.`;
+            }
+
+        } else {
+            let uniqueScores = [...new Set(students.map(s => s.score))].sort((a, b) => b - a);
+            let topThreeScores = uniqueScores.slice(0, 3); 
+            let eligibleStudents = students.filter(s => topThreeScores.includes(s.score));
+
+            let topScore = students[0].score;
+            let winners = students.filter(s => s.score === topScore);
+
+            winnerAnnounce.innerText = `👑 Juara Sifir Battle: ${winners.map(w => w.name).join(', ')} (${topScore} Markah)!`;
+
+            leaderboardList.innerHTML = `<h3 style="margin-bottom: 8px; color: #2c3e50;">📊 Papan Markah Penuh:</h3>`;
+            students.forEach((s, idx) => {
+                leaderboardList.innerHTML += `
+                    <div class="leaderboard-item">
+                        <span>#${idx + 1} ${s.name}</span>
+                        <span style="color: #27ae60;">${s.score} Markah</span>
+                    </div>
+                `;
+            });
+
+            if (eligibleStudents.length > 0) {
+                eligibleStudents.forEach(student => {
+                    let rankText = "";
+                    if (student.score === uniqueScores[0]) {
+                        rankText = "Tempat Pertama (Juara)";
+                    } else if (student.score === uniqueScores[1]) {
+                        rankText = "Tempat Kedua";
+                    } else if (student.score === uniqueScores[2]) {
+                        rankText = "Tempat Ketiga";
+                    }
+                    
+                    certPrintArea.innerHTML += `
+                        <div class="certificate-box">
+                            <div class="cert-header">Sijil Penghargaan Cemerlang</div>
+                            <div class="cert-title">Juara Sifir ${currentSifir}</div>
+                            <div class="cert-desc">Dengan ini diperakukan bahawa</div>
+                            <div class="cert-name">${student.name}</div>
+                            <div class="cert-desc" style="margin-top: 5px;">telah berjaya merangkul <b>${rankText}</b> dalam <b>Cabaran Sifir ${currentSifir}</b> dengan cemerlang.</div>
+                            <div style="margin-top: 15px; font-size: 0.8rem; color: #7f8c8d;">Cabaran Bijak Sifir</div>
+                            <div class="cert-stamp">🏆</div>
+                        </div>
+                    `;
+                });
+            }
+
+            playVictoryFanfare();
+            announceWinners(winners.map(w => w.name));
+            confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 } });
+        }
+    }
+</script>
+
+</body>
+</html>
