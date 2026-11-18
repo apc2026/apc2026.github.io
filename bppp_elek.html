@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borang Pemantauan PdP Teori & Amali</title>
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=Ad0uoDytWL52tbD9guMmZ4x2jByEz7s1zPv_gMqiCK_wFJzAZ8C5BcoOJb_ylNbUClRk-IBNlSWlOxmqheYbZMnudtimi5eUn9R5a7G5calw--cY6CTeQt3PJvH31E1zlx3hGXa-RCc1mI-tehsZqdpO1Pz3AeC1ESrbhB9FugPGg-TZjrxhdPOrY2871U-9nBHmO97Ro3AiGe3ESz1hUZaodzNJjJu5k7hrYsZPd2yg79dnDw7ebRZ87pxXatZrvSopsdF8hCM8X--OdMSy11c70pz4jnBOhkzia-oqwhGnA5-0Ie5uRfkW40qeoMCRBpgqG7GH5GjUvzgm1e2sDQ" charset="UTF-8"></script><style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #004080;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .header h2 {
+            margin: 0;
+            color: #004080;
+            font-size: 22px;
+            text-transform: uppercase;
+        }
+        .year-selector-header {
+            margin-top: 8px;
+            font-weight: bold;
+            color: #004080;
+            font-size: 16px;
+        }
+        .year-selector-header select {
+            font-size: 15px;
+            font-weight: bold;
+            padding: 4px 10px;
+            border: 1px solid #004080;
+            border-radius: 4px;
+            color: #004080;
+            background-color: #f0f4f8;
+            cursor: pointer;
+        }
+        .firebase-badge {
+            display: inline-block;
+            margin-top: 6px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        .firebase-badge.connected {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status-banner {
+            background: #e9ecef;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid #004080;
+        }
+        .role-selector {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+        }
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .meta-item label {
+            font-size: 12px;
+            font-weight: bold;
+            color: #6c757d;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        .meta-item select, .meta-item input {
+            font-size: 14px;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            background: #fff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 10px 12px;
+            text-align: left;
+            font-size: 14px;
+        }
+        th {
+            background-color: #004080;
+            color: white;
+            text-align: center;
+        }
+        th.text-left {
+            text-align: left;
+        }
+        td.text-center {
+            text-align: center;
+        }
+        tr:nth-child(even) {
+            background-color: #fcfcfc;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 6px;
+            box-sizing: border-box;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        textarea {
+            resize: vertical;
+            height: 38px;
+        }
+        .director-comment-box {
+            background: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-left: 5px solid #004080;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+        }
+        .director-comment-box label {
+            display: block;
+            font-weight: bold;
+            color: #004080;
+            margin-bottom: 8px;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        .director-comment-box textarea {
+            height: 80px;
+            font-size: 14px;
+            padding: 10px;
+            background: #fff;
+        }
+        .director-comment-box textarea:disabled {
+            background: #e9ecef;
+            color: #495057;
+            cursor: not-allowed;
+        }
+        .signatures-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .signature-box {
+            border: 1px solid #dee2e6;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+        }
+        .signature-box p {
+            margin: 5px 0;
+            font-size: 13px;
+        }
+        .sign-status {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 4px;
+            background: #e2e8f0;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+        }
+        .sign-status.pending {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        .sign-status.verified {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .workflow-actions {
+            background: #f1f3f5;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            margin-top: 20px;
+            border: 1px solid #dee2e6;
+        }
+        .btn {
+            background-color: #004080;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            margin: 4px;
+            transition: background 0.2s;
+        }
+        .btn:hover { background-color: #002d59; }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .btn-success { background-color: #28a745; }
+        .btn-success:hover { background-color: #218838; }
+        .btn-warning { background-color: #ffc107; color: #212529; }
+        .btn-warning:hover { background-color: #e0a800; }
+        .btn-danger { background-color: #dc3545; }
+        .btn-danger:hover { background-color: #c82333; }
+        .btn-info { background-color: #17a2b8; }
+        .btn-info:hover { background-color: #138496; }
+
+        .saved-records-section {
+            margin-top: 35px;
+            border-top: 2px solid #004080;
+            padding-top: 20px;
+        }
+        .saved-records-section h3 {
+            color: #004080;
+            margin-top: 0;
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+        .saved-table th {
+            background-color: #343a40;
+            font-size: 13px;
+            padding: 8px;
+        }
+        .saved-table td {
+            font-size: 13px;
+            padding: 8px;
+        }
+
+        @media print {
+            body {
+                background-color: #fff;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            .role-selector, .workflow-actions, .saved-records-section, .no-print {
+                display: none !important;
+            }
+            input[type="text"], select {
+                border: none !important;
+                background: transparent !important;
+                appearance: none;
+                -webkit-appearance: none;
+                padding: 0 !important;
+                font-weight: bold;
+            }
+            textarea {
+                border: none !important;
+                background: transparent !important;
+                resize: none;
+                padding: 0 !important;
+                overflow: visible !important;
+                height: auto !important;
+            }
+            input[type="radio"] {
+                appearance: checkbox;
+                -webkit-appearance: checkbox;
+            }
+            input[type="radio"]:checked::after {
+                content: "✔";
+                font-weight: bold;
+                color: #000;
+                display: inline-block;
+                text-align: center;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2>Borang Pemantauan PdP Teori & Amali</h2>
+        <div class="year-selector-header">
+            <label for="tahunPemantauan">TAHUN: </label>
+            <select id="tahunPemantauan" name="tahunPemantauan" class="editable-koordinator">
+                <option value="2025">2025</option>
+                <option value="2026" selected>2026</option>
+                <option value="2027">2027</option>
+                <option value="2028">2028</option>
+                <option value="2029">2029</option>
+                <option value="2030">2030</option>
+            </select>
+        </div>
+        <p style="margin: 8px 0 0 0; font-weight: bold; color: #555;">JABATAN/SEKOLAH: ELEKTRIKAL</p>
+        <div id="firebaseStatusBadge" class="firebase-badge no-print">Menyambung ke Firebase Cloud...</div>
+    </div>
+
+    <div class="role-selector no-print">
+        <label for="currentRole"><strong>PILIH PERANAN ANDA:</strong></label>
+        <select id="currentRole" onchange="switchRole()" style="margin-top: 5px; padding: 6px; width: 100%;">
+            <option value="koordinator">Peranan 1: Koordinator (Mengisi Borang)</option>
+            <option value="pp">Peranan 2: Pegawai Penilai / PP (Menyemak & Bersetuju)</option>
+            <option value="pengarah">Peranan 3: Pengarah Operasi (Komen & Pengesahan Akhir)</option>
+        </select>
+    </div>
+
+    <div class="status-banner" id="statusBanner">
+        <div><strong>Status Semasa:</strong> <span id="statusText">Sedang diisi oleh Koordinator</span></div>
+        <div id="badgeStatus" style="background: #ffc107; color: #212529; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold;">Draf / Dalam Proses</div>
+    </div>
+
+    <form id="pemantauanForm">
+        <div class="meta-grid">
+            <div class="meta-item">
+                <label for="namaPP">Nama PP (Pegawai Penilai / Pengajar):</label>
+                <select id="namaPP" name="namaPP" class="editable-koordinator" onchange="handlePPChange()">
+                    <option value="">-- Sila Pilih Nama Pegawai Penilai --</option>
+                    <option value="EN.SYAFIQ ZUHRI BIN AZMI">EN.SYAFIQ ZUHRI BIN AZMI</option>
+                    <option value="EN.MOHAMAD FAIZ IRFAN BIN MUHAMMAD">EN.MOHAMAD FAIZ IRFAN BIN MUHAMMAD</option>
+                    <option value="EN.MOHD AMIR BIN MOHD ZAHID">EN.MOHD AMIR BIN MOHD ZAHID</option>
+                    <option value="EN.NORSHAFIQ BIN YAACOB">EN.NORSHAFIQ BIN YAACOB</option>
+                    <option value="EN .MOHD SYAFIQ AKHMAL BIN MOHAMAD YUSOF">EN .MOHD SYAFIQ AKHMAL BIN MOHAMAD YUSOF</option>
+                    <option value="EN .MUHAMAD KAMARULARIFIN BIN RAHMAT">EN .MUHAMAD KAMARULARIFIN BIN RAHMAT</option>
+                    <option value="CIK ALYA SYAMIMI BINTI MOHD RUHAIZAT">CIK ALYA SYAMIMI BINTI MOHD RUHAIZAT</option>
+                    <option value="EN.MUHAMMAD ANAS ASYRAF BIN RAZMAN">EN.MUHAMMAD ANAS ASYRAF BIN RAZMAN</option>
+                </select>
+            </div>
+            <div class="meta-item">
+                <label for="tarikh">Tarikh Pemantauan:</label>
+                <input type="date" id="tarikh" name="tarikh" class="editable-koordinator">
+            </div>
+            <div class="meta-item">
+                <label for="tahapSelect">Tahap:</label>
+                <select id="tahapSelect" name="tahapSelect" class="editable-koordinator" onchange="updateCUList()">
+                    <option value="">-- Sila Pilih Tahap --</option>
+                    <option value="TAHAP 2">TAHAP 2</option>
+                    <option value="TAHAP 3">TAHAP 3</option>
+                    <option value="TAHAP 4">TAHAP 4</option>
+                </select>
+            </div>
+            <div class="meta-item">
+                <label for="kodCU">Kod & Nama CU:</label>
+                <select id="kodCU" name="kodCU" class="editable-koordinator">
+                    <option value="">-- Sila Pilih Tahap Terlebih Dahulu --</option>
+                </select>
+            </div>
+            <div class="meta-item" style="grid-column: span 2;">
+                <label for="kelas">Kelas:</label>
+                <input type="text" id="kelas" name="kelas" placeholder="Cth: ELEK100" class="editable-koordinator">
+            </div>
+        </div>
+
+        <table id="kriteriaTable">
+            <thead>
+                <tr>
+                    <th style="width: 6%;">Bil.</th>
+                    <th class="text-left" style="width: 44%;">Kriteria Pemantauan</th>
+                    <th style="width: 7%;">Ya</th>
+                    <th style="width: 7%;">Tidak</th>
+                    <th style="width: 18%;">Catatan</th>
+                    <th style="width: 18%;">Tindakan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">1</td>
+                    <td>Rancangan Pengajaran (RP) dikemaskini</td>
+                    <td class="text-center"><input type="radio" name="kriteria_1" value="Ya" class="editable-koordinator"></td>
+                    <td class="text-center"><input type="radio" name="kriteria_1" value="Tidak" class="editable-koordinator"></td>
+                    <td><textarea name="catatan_1" class="editable-koordinator"></textarea></td>
+                    <td><textarea name="tindakan_1" class="editable-koordinator"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="text-center">2</td>
+                    <td>Kelas bermula mengikut masa yang ditetapkan</td>
+                    <td class="text-center"><input type="radio" name="kriteria_2" value="Ya" class="editable-koordinator"></td>
+                    <td class="text-center"><input type="radio" name="kriteria_2" value="Tidak" class="editable-koordinator"></td>
+                    <td><textarea name="catatan_2" class="editable-koordinator"></textarea></td>
+                    <td><textarea name="tindakan_2" class="editable-koordinator"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="text-center">3</td>
+                    <td>Kehadiran pelatih direkodkan</td>
+                    <td class="text-center"><input type="radio" name="kriteria_3" value="Ya" class="editable-koordinator"></td>
+                    <td class="text-center"><input type="radio" name="kriteria_3" value="Tidak" class="editable-koordinator"></td>
+                    <td><textarea name="catatan_3" class="editable-koordinator"></textarea></td>
+                    <td><textarea name="tindakan_3" class="editable-koordinator"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="text-center">4</td>
+                    <td>Bahan PDP lengkap</td>
+                    <td class="text-center"><input type="radio" name="kriteria_4" value="Ya" class="editable-koordinator"></td>
+                    <td class="text-center"><input type="radio" name="kriteria_4" value="Tidak" class="editable-koordinator"></td>
+                    <td><textarea name="catatan_4" class="editable-koordinator"></textarea></td>
+                    <td><textarea name="tindakan_4" class="editable-koordinator"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="text-center">5</td>
+                    <td>Kerusi dan meja pelatih mencukupi</td>
+                    <td class="text-center"><input type="radio" name="kriteria_5" value="Ya" class="editable-koordinator"></td>
+                    <td class="text-center"><input type="radio" name="kriteria_5" value="Tidak" class="editable-koordinator"></td>
+                    <td><textarea name="catatan_5" class="editable-koordinator"></textarea></td>
+                    <td><textarea name="tindakan_5" class="editable-koordinator"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="text-center">6</td>
+                    <td>BK/Makmal/Bengkel bersih dan kemas</td>
+                    <td class="text-center"><input type="radio" name="kriteria_6" value="Ya" class="editable-koordinator"></td>
+                    <td class="text-center"><input type="radio" name="kriteria_6" value="Tidak" class="editable-koordinator"></td>
+                    <td><textarea name="catatan_6" class="editable-koordinator"></textarea></td>
+                    <td><textarea name="tindakan_6" class="editable-koordinator"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="text-center">7</td>
+                    <td>Peralatan latihan mencukupi dan berfungsi</td>
+                    <td class="text-center"><input type="radio" name="kriteria_7" value="Ya" class="editable-koordinator"></td>
+                    <td class="text-center"><input type="radio" name="kriteria_7" value="Tidak" class="editable-koordinator"></td>
+                    <td><textarea name="catatan_7" class="editable-koordinator"></textarea></td>
+                    <td><textarea name="tindakan_7" class="editable-koordinator"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="text-center">8</td>
+                    <td>Pelatih mematuhi peraturan kolej</td>
+                    <td class="text-center"><input type="radio" name="kriteria_8" value="Ya" class="editable-koordinator"></td>
+                    <td class="text-center"><input type="radio" name="kriteria_8" value="Tidak" class="editable-koordinator"></td>
+                    <td><textarea name="catatan_8" class="editable-koordinator"></textarea></td>
+                    <td><textarea name="tindakan_8" class="editable-koordinator"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="text-center">9</td>
+                    <td>Kerosakan kemudahan asas dilaporkan (Air-Cond, Lampu, Kipas, dll)</td>
+                    <td class="text-center"><input type="radio" name="kriteria_9" value="Ya" class="editable-koordinator"></td>
+                    <td class="text-center"><input type="radio" name="kriteria_9" value="Tidak" class="editable-koordinator"></td>
+                    <td><textarea name="catatan_9" class="editable-koordinator"></textarea></td>
+                    <td><textarea name="tindakan_9" class="editable-koordinator"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="text-center">10</td>
+                    <td>Kerosakan peralatan latihan dilaporkan</td>
+                    <td class="text-center"><input type="radio" name="kriteria_10" value="Ya" class="editable-koordinator"></td>
+                    <td class="text-center"><input type="radio" name="kriteria_10" value="Tidak" class="editable-koordinator"></td>
+                    <td><textarea name="catatan_10" class="editable-koordinator"></textarea></td>
+                    <td><textarea name="tindakan_10" class="editable-koordinator"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="text-center">11</td>
+                    <td>Pelatih memakai PPE (jika berkaitan)</td>
+                    <td class="text-center"><input type="radio" name="kriteria_11" value="Ya" class="editable-koordinator"></td>
+                    <td class="text-center"><input type="radio" name="kriteria_11" value="Tidak" class="editable-koordinator"></td>
+                    <td><textarea name="catatan_11" class="editable-koordinator"></textarea></td>
+                    <td><textarea name="tindakan_11" class="editable-koordinator"></textarea></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="director-comment-box">
+            <label for="komenPengarah">Komen Pengarah Operasi untuk PP ini:</label>
+            <textarea id="komenPengarah" name="komenPengarah" placeholder="Masukkan komen khusus Pengarah Operasi bagi Pegawai Penilai (PP) ini..." disabled></textarea>
+        </div>
+
+        <div class="signatures-grid">
+            <div class="signature-box">
+                <p><strong>DISEDIAKAN OLEH:</strong></p>
+                <p style="margin-top: 15px;"><strong>PN.NOOR AMIRA BINTI SULAIMAN</strong></p>
+                <p style="color: #666;">Koordinator / Pemantau</p>
+                <span id="statusSignKoordinator" class="sign-status">Belum Dihantar</span>
+            </div>
+            <div class="signature-box">
+                <p><strong>DIPERSETUJUI OLEH:</strong></p>
+                <p style="margin-top: 15px;"><strong id="displaySignPP">-</strong></p>
+                <p style="color: #666;">Pegawai Penilai (PP)</p>
+                <span id="statusSignPP" class="sign-status">Menunggu Persetujuan</span>
+            </div>
+            <div class="signature-box">
+                <p><strong>DISEMAK & DISAHKAN OLEH:</strong></p>
+                <p style="margin-top: 15px;"><strong>MINNAL NAVAVINOBA</strong></p>
+                <p style="color: #666;">Pengarah Operasi</p>
+                <span id="statusSignPengarah" class="sign-status">Menunggu Pengesahan</span>
+            </div>
+        </div>
+
+        <div class="workflow-actions no-print">
+            <div id="actionKoordinator">
+                <p><strong>Tindakan Koordinator:</strong> Sila lengkapkan maklumat dan hantar kepada Pegawai Penilai.</p>
+                <button type="button" class="btn" onclick="submitToPP()">Hantar kepada Pegawai Penilai (PP)</button>
+            </div>
+            
+            <div id="actionPP" style="display: none;">
+                <p id="ppActionInstruction"><strong>Tindakan Pegawai Penilai (PP):</strong> Semak penilaian dan klik setuju.</p>
+                <div id="ppAgreementWrapper">
+                    <label style="display: block; margin-bottom: 12px; cursor: pointer;">
+                        <input type="checkbox" id="agreePP" onchange="togglePPStatusPreview()"> Saya, <strong id="ppCheckboxName">-</strong>, bersetuju dengan maklumat pemantauan di atas.
+                    </label>
+                    <button type="button" class="btn btn-warning" onclick="submitToPPAndNext()">Bersetuju & Simpan Rekod PP Ini</button>
+                </div>
+            </div>
+
+            <div id="actionPengarah" style="display: none;">
+                <p><strong>Tindakan Pengarah Operasi (Minnal Navavinoba):</strong> Masukkan komen khusus untuk PP ini di atas, kemudian klik butang pengesahan.</p>
+                <button type="button" id="btnApprovePengarah" class="btn btn-success" onclick="approvePengarahRecord()">Simpan Komen & Sahkan Rekod PP Ini</button>
+            </div>
+
+            <div style="margin-top: 15px; border-top: 1px solid #dee2e6; padding-top: 15px;">
+                <button type="button" class="btn btn-info" onclick="window.print()">Cetak Borang Semasa (Print)</button>
+                <span id="btnResetContainer">
+                    <button type="button" class="btn btn-danger" onclick="confirmReset()">Kosongkan Borang / Pilih PP Baru</button>
+                </span>
+            </div>
+        </div>
+    </form>
+
+    <div class="saved-records-section no-print">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <h3>Senarai Rekod Pemantauan PP (Komen & Status Individu)</h3>
+            <button type="button" class="btn btn-danger" style="padding: 6px 12px; font-size: 11px;" onclick="clearAllStorage()">Padam Semua Rekod</button>
+        </div>
+        <table class="saved-table">
+            <thead>
+                <tr>
+                    <th style="width: 5%;">Bil</th>
+                    <th style="width: 25%; text-align: left;">Nama Pegawai Penilai (PP)</th>
+                    <th style="width: 12%;">Tarikh</th>
+                    <th style="width: 18%;">Kod CU / Kelas</th>
+                    <th style="width: 15%;">Status</th>
+                    <th style="width: 25%;">Tindakan</th>
+                </tr>
+            </thead>
+            <tbody id="savedRecordsBody">
+                <tr>
+                    <td colspan="6" class="text-center" style="color: #6c757d;">Memuatkan rekod daripada Firebase...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Firebase SDK (Modular v10) -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { 
+        getFirestore, collection, doc, setDoc, updateDoc, deleteDoc, onSnapshot, getDocs 
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // =========================================================================
+    // TUKAR KONFIGURASI DI BAWAH DENGAN KOD DARI PROJECT SETTINGS FIREBASE ANDA
+    // =========================================================================
+    const firebaseConfig = {
+        apiKey: "AIzaSyB0G2SxiTdWCoY8_X8WWCDeD2wtSJGEP5g",
+        authDomain: "apc-database.firebaseapp.com",
+        projectId: "apc-database",
+        storageBucket: "apc-database.firebasestorage.app",
+        messagingSenderId: "298170499802",
+        appId: "1:298170499802:web:e1c3dfa2ca8db09b741be3",
+        measurementId: "G-ML78PRZKWL"
+    };
+
+    const COLLECTION_NAME = "pemantauan_pdp_elek_2026";
+    let db = null;
+    let useFirebase = false;
+    let cachedRecords = [];
+    const LOCAL_BACKUP_KEY = 'pemantauan_pdp_records_2026';
+
+    const statusBadge = document.getElementById('firebaseStatusBadge');
+
+    try {
+        if (firebaseConfig.apiKey && !firebaseConfig.apiKey.includes("MASUKKAN_API_KEY")) {
+            const app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            useFirebase = true;
+
+            // Dengar perubahan data secara masa nyata (Real-time sync)
+            onSnapshot(collection(db, COLLECTION_NAME), (snapshot) => {
+                cachedRecords = [];
+                snapshot.forEach((docSnap) => {
+                    cachedRecords.push({ id: docSnap.id, ...docSnap.data() });
+                });
+                // Susun mengikut masa dicipta
+                cachedRecords.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+                statusBadge.innerText = "Firebase Cloud Bersambung ✓ (Real-Time)";
+                statusBadge.classList.add('connected');
+                renderSavedRecords();
+            }, (error) => {
+                console.error("Ralat Firestore:", error);
+                statusBadge.innerText = "Ralat Sambungan Firestore (Semak Rules/Config)";
+                fallbackToLocal();
+            });
+        } else {
+            statusBadge.innerText = "Mod Offline (Sila masukkan firebaseConfig dalam kod)";
+            fallbackToLocal();
+        }
+    } catch (e) {
+        console.error("Ralat inisialisasi Firebase:", e);
+        statusBadge.innerText = "Mod Offline (Konfigurasi Firebase belum lengkap)";
+        fallbackToLocal();
+    }
+
+    function fallbackToLocal() {
+        useFirebase = false;
+        cachedRecords = JSON.parse(localStorage.getItem(LOCAL_BACKUP_KEY)) || [];
+        renderSavedRecords();
+    }
+
+    // Fungsi simpan ke Firestore / LocalStorage
+    window.saveRecordToCloud = async function(record) {
+        if (useFirebase && db) {
+            const docId = String(record.id);
+            await setDoc(doc(db, COLLECTION_NAME, docId), record);
+        } else {
+            const idx = cachedRecords.findIndex(r => String(r.id) === String(record.id));
+            if (idx > -1) cachedRecords[idx] = record;
+            else cachedRecords.push(record);
+            localStorage.setItem(LOCAL_BACKUP_KEY, JSON.stringify(cachedRecords));
+            renderSavedRecords();
+        }
+    };
+
+    // Fungsi kemas kini komen & pengesahan Pengarah
+    window.updateRecordInCloud = async function(id, updates) {
+        if (useFirebase && db) {
+            await updateDoc(doc(db, COLLECTION_NAME, String(id)), updates);
+        } else {
+            const idx = cachedRecords.findIndex(r => String(r.id) === String(id));
+            if (idx > -1) {
+                Object.assign(cachedRecords[idx], updates);
+                localStorage.setItem(LOCAL_BACKUP_KEY, JSON.stringify(cachedRecords));
+                renderSavedRecords();
+            }
+        }
+    };
+
+    // Fungsi padam satu rekod
+    window.deleteRecordFromCloud = async function(id) {
+        if (useFirebase && db) {
+            await deleteDoc(doc(db, COLLECTION_NAME, String(id)));
+        } else {
+            cachedRecords = cachedRecords.filter(r => String(r.id) !== String(id));
+            localStorage.setItem(LOCAL_BACKUP_KEY, JSON.stringify(cachedRecords));
+            renderSavedRecords();
+        }
+    };
+
+    // Fungsi padam semua rekod
+    window.clearAllCloudRecords = async function() {
+        if (useFirebase && db) {
+            const snap = await getDocs(collection(db, COLLECTION_NAME));
+            const deletePromises = [];
+            snap.forEach((d) => deletePromises.push(deleteDoc(doc(db, COLLECTION_NAME, d.id))));
+            await Promise.all(deletePromises);
+        } else {
+            cachedRecords = [];
+            localStorage.removeItem(LOCAL_BACKUP_KEY);
+            renderSavedRecords();
+        }
+    };
+
+    window.getAllCachedRecords = function() {
+        return cachedRecords;
+    };
+</script>
+
+<script>
+    const CU_DATA = {
+        "TAHAP 2": [
+            "CA - CORE ABILITIES (T1 & T2)",
+            "C01 - SINGLE PHASE DRAWING",
+            "C02 - SINGLE PHASE WIRING",
+            "C03 - SINGLE PHASE SYSTEM MAINTENANCE",
+            "C04 - SINGLE PHASE MOTOR & MOTOR CONTROL",
+            "EAM2 - ELECTRICAL APPLIANCES MAINTENANCE"
+        ],
+        "TAHAP 3": [
+            "CA - CORE ABILITIES (T3)",
+            "C01 - THREE PHASE DRAWING",
+            "C02 - THREE PHASE WIRING",
+            "C03 - THREE PHASE SYSTEM MAINTENANCE",
+            "C04 - SINGLE PHASE MOTOR & MOTOR CONTROL",
+            "C05 - THREE PHASE WIRING TESTING AND COMMISSIONING",
+            "C06 - ELECTRICAL BUILDING AUTOMATION SYSTEM INSTALLATION",
+            "C07 - ELECTRICAL INSTALLATION & MAINTENANCE SUPERVISORY",
+            "AIS2 - AIR CONDITIONING INSTALLATION & SERVICING"
+        ],
+        "TAHAP 4": [
+            "CA - CORE ABILITIES (T4)",
+            "C01 - LOW VOLTAGE SWITCHBOARD INSTALLATION AND MAINTENANCE",
+            "C02 - DISTRIBUTION TRANSFORMER  MAINTENANCE",
+            "C03 - LOW VOLTAGE UNDERGROUND CABLE SYSTEM INSTALLATION AND MAINTENANCE",
+            "C04 - LOW VOLTAGE OVERHEAD SYSTEM INSTALLATION AND MAINTENANCE",
+            "C05 - AIR CONDITIONING AND MECHANICAL VENTILATION",
+            "C06 - SOFT STARTER INSTALLATION AND MAINTENANCE",
+            "C07 - ELECTRICAL PROJECT IMPLEMENTATION SUPERVISION",
+            "C08 - PROGRAMMABLE LOGIC CONTROLLER (PLC) INSTALLATION",
+            "C09 - LOW VOLTAGE EARTHING SYSTEM INSTALLATION AND TESTING",
+            "ECC1 - EFFECTIVE COMMUNICATION COLLABORATION"
+        ]
+    };
+
+    let currentActiveRecordId = null;
+    let currentWorkflowStage = 'draf';
+
+    function updateSignatureBadges() {
+        const signKoord = document.getElementById('statusSignKoordinator');
+        const signPP = document.getElementById('statusSignPP');
+        const signPengarah = document.getElementById('statusSignPengarah');
+        const badgeTop = document.getElementById('badgeStatus');
+
+        signKoord.className = 'sign-status';
+        signPP.className = 'sign-status';
+        signPengarah.className = 'sign-status';
+
+        if (currentWorkflowStage === 'draf') {
+            signKoord.innerText = 'Belum Dihantar';
+            signPP.innerText = 'Menunggu Persetujuan';
+            signPengarah.innerText = 'Menunggu Pengesahan';
+
+            badgeTop.innerText = 'Draf / Dalam Proses';
+            badgeTop.style.background = '#ffc107';
+            badgeTop.style.color = '#212529';
+        } 
+        else if (currentWorkflowStage === 'semakan_pp') {
+            signKoord.innerText = 'Telah Dihantar ✓';
+            signKoord.classList.add('verified');
+
+            signPP.innerText = 'Menunggu Persetujuan';
+            signPP.classList.add('pending');
+
+            signPengarah.innerText = 'Menunggu Pengesahan';
+
+            badgeTop.innerText = 'Semakan PP';
+            badgeTop.style.background = '#17a2b8';
+            badgeTop.style.color = '#ffffff';
+        } 
+        else if (currentWorkflowStage === 'menunggu_pengarah') {
+            signKoord.innerText = 'Telah Dihantar ✓';
+            signKoord.classList.add('verified');
+
+            signPP.innerText = 'Dipersetujui ✓';
+            signPP.classList.add('verified');
+
+            signPengarah.innerText = 'Menunggu Pengesahan';
+            signPengarah.classList.add('pending');
+
+            badgeTop.innerText = 'Menunggu Pengesahan Pengarah';
+            badgeTop.style.background = '#ffc107';
+            badgeTop.style.color = '#212529';
+        } 
+        else if (currentWorkflowStage === 'disahkan') {
+            signKoord.innerText = 'Telah Dihantar ✓';
+            signKoord.classList.add('verified');
+
+            signPP.innerText = 'Dipersetujui ✓';
+            signPP.classList.add('verified');
+
+            signPengarah.innerText = 'Disemak & Disahkan ✓';
+            signPengarah.classList.add('verified');
+
+            badgeTop.innerText = 'DISAHKAN ✓';
+            badgeTop.style.background = '#28a745';
+            badgeTop.style.color = '#ffffff';
+        }
+    }
+
+    function togglePPStatusPreview() {
+        const agree = document.getElementById('agreePP').checked;
+        const signPP = document.getElementById('statusSignPP');
+        if (agree) {
+            signPP.innerText = 'Bersetuju (Sedia Disimpan) ✓';
+            signPP.className = 'sign-status verified';
+        } else {
+            signPP.innerText = 'Menunggu Persetujuan';
+            signPP.className = 'sign-status pending';
+        }
+    }
+
+    function updateCUList(selectedCU = '') {
+        const tahap = document.getElementById('tahapSelect').value;
+        const kodCUSelect = document.getElementById('kodCU');
+        kodCUSelect.innerHTML = '';
+
+        if (!tahap || !CU_DATA[tahap]) {
+            kodCUSelect.innerHTML = '<option value="">-- Sila Pilih Tahap Terlebih Dahulu --</option>';
+            return;
+        }
+
+        const defaultOpt = document.createElement('option');
+        defaultOpt.value = '';
+        defaultOpt.textContent = '-- Sila Pilih Kod & Nama CU (' + tahap + ') --';
+        kodCUSelect.appendChild(defaultOpt);
+
+        CU_DATA[tahap].forEach(cu => {
+            const opt = document.createElement('option');
+            opt.value = cu;
+            opt.textContent = cu;
+            if (cu === selectedCU) {
+                opt.selected = true;
+            }
+            kodCUSelect.appendChild(opt);
+        });
+    }
+
+    window.onload = function() {
+        updateSignatureBadges();
+        switchRole(); 
+    };
+
+    function handlePPChange() {
+        const selectedPP = document.getElementById('namaPP').value;
+        document.getElementById('displaySignPP').innerText = selectedPP || '-';
+        document.getElementById('ppCheckboxName').innerText = selectedPP || '-';
+    }
+
+    function isFormFullyCompleted() {
+        const namaPP = document.getElementById('namaPP').value;
+        const tarikh = document.getElementById('tarikh').value;
+        const tahap = document.getElementById('tahapSelect').value;
+        const kodCU = document.getElementById('kodCU').value;
+        const kelas = document.getElementById('kelas').value.trim();
+
+        if (!namaPP || !tarikh || !tahap || !kodCU || !kelas) return false;
+
+        for (let i = 1; i <= 11; i++) {
+            const radio = document.querySelector(`input[name="kriteria_${i}"]:checked`);
+            if (!radio) return false;
+        }
+        return true;
+    }
+
+    function switchRole() {
+        const role = document.getElementById('currentRole').value;
+        const koordinatorElements = document.querySelectorAll('.editable-koordinator');
+        const komenPengarah = document.getElementById('komenPengarah');
+        const selectedPP = document.getElementById('namaPP').value;
+        const btnResetContainer = document.getElementById('btnResetContainer');
+        const ppAgreementWrapper = document.getElementById('ppAgreementWrapper');
+        const ppActionInstruction = document.getElementById('ppActionInstruction');
+        
+        document.getElementById('actionKoordinator').style.display = 'none';
+        document.getElementById('actionPP').style.display = 'none';
+        document.getElementById('actionPengarah').style.display = 'none';
+
+        if (role === 'koordinator') {
+            document.getElementById('statusText').innerText = "Sedang diisi oleh Koordinator";
+            document.getElementById('actionKoordinator').style.display = 'block';
+            koordinatorElements.forEach(el => el.removeAttribute('disabled'));
+            komenPengarah.setAttribute('disabled', 'true');
+            if (btnResetContainer) btnResetContainer.style.display = 'inline-block';
+        } 
+        else if (role === 'pp') {
+            document.getElementById('statusText').innerText = "Menunggu Persetujuan Pegawai Penilai (PP)";
+            document.getElementById('actionPP').style.display = 'block';
+            koordinatorElements.forEach(el => el.setAttribute('disabled', 'true'));
+            komenPengarah.setAttribute('disabled', 'true');
+            document.getElementById('displaySignPP').innerText = selectedPP || '-';
+            document.getElementById('ppCheckboxName').innerText = selectedPP || '-';
+            if (btnResetContainer) btnResetContainer.style.display = 'none';
+
+            if (!isFormFullyCompleted()) {
+                if (ppAgreementWrapper) ppAgreementWrapper.style.display = 'none';
+                if (ppActionInstruction) {
+                    ppActionInstruction.innerHTML = `<strong style="color: #dc3545;">⚠️ SEKATAN: Borang belum lengkap diisi oleh Koordinator.</strong>`;
+                }
+            } else {
+                if (ppAgreementWrapper) ppAgreementWrapper.style.display = 'block';
+                if (ppActionInstruction) {
+                    ppActionInstruction.innerHTML = `<strong>Tindakan Pegawai Penilai (PP):</strong> Semak penilaian dan klik setuju untuk simpan.`;
+                }
+            }
+        } 
+        else if (role === 'pengarah') {
+            document.getElementById('statusText').innerText = "Semakan Komen & Pengesahan Pengarah Operasi";
+            document.getElementById('actionPengarah').style.display = 'block';
+            koordinatorElements.forEach(el => el.setAttribute('disabled', 'true'));
+            komenPengarah.removeAttribute('disabled');
+            if (btnResetContainer) btnResetContainer.style.display = 'none';
+        }
+        updateSignatureBadges();
+    }
+
+    async function submitToPP() {
+        if (!isFormFullyCompleted()) {
+            alert('Sila lengkapkan semua maklumat asas dan kesemua 11 kriteria pemantauan terlebih dahulu.');
+            return;
+        }
+        currentWorkflowStage = 'semakan_pp';
+        updateSignatureBadges();
+
+        // Simpan draf dihantar ke Firebase supaya PP boleh buka dari peranti lain
+        const recordData = collectFormData();
+        recordData.status = "Menunggu Persetujuan PP";
+        currentActiveRecordId = recordData.id;
+
+        try {
+            await window.saveRecordToCloud(recordData);
+            alert('Borang berjaya disimpan ke Firebase & dihantar kepada Pegawai Penilai (PP).');
+            document.getElementById('currentRole').value = 'pp';
+            switchRole();
+        } catch (err) {
+            alert('Ralat menyimpan ke Firebase: ' + err.message);
+        }
+    }
+
+    async function submitToPPAndNext() {
+        if (!isFormFullyCompleted()) {
+            alert('Borang kosong atau tidak lengkap.');
+            return;
+        }
+
+        const agree = document.getElementById('agreePP').checked;
+        if (!agree) {
+            alert('Sila tandakan kotak persetujuan (checkbox) terlebih dahulu.');
+            return;
+        }
+        
+        currentWorkflowStage = 'menunggu_pengarah';
+        updateSignatureBadges();
+
+        const recordData = collectFormData();
+        recordData.status = "Menunggu Pengesahan Pengarah";
+
+        try {
+            await window.saveRecordToCloud(recordData);
+            alert('Persetujuan PP direkodkan ke Firebase! Status PP dikemas kini kepada "Dipersetujui ✓" untuk pengesahan Pengarah Operasi.');
+            prepareNewPP();
+        } catch (err) {
+            alert('Ralat mengemas kini rekod di Firebase: ' + err.message);
+        }
+    }
+
+    async function approvePengarahRecord() {
+        if (!currentActiveRecordId) {
+            alert('Sila pilih rekod PP daripada senarai di bawah (klik "Buka / Sahkan") untuk disahkan oleh Pengarah Operasi.');
+            return;
+        }
+
+        const records = window.getAllCachedRecords();
+        const rec = records.find(r => String(r.id) === String(currentActiveRecordId));
+        if (!rec) return;
+
+        try {
+            await window.updateRecordInCloud(currentActiveRecordId, {
+                komenPengarah: document.getElementById('komenPengarah').value,
+                status: "DISAHKAN ✓"
+            });
+
+            currentWorkflowStage = 'disahkan';
+            updateSignatureBadges();
+            alert('Komen Pengarah Operasi (Minnal Navavinoba) untuk ' + rec.namaPP + ' telah disimpan ke Firebase dan status dikemas kini kepada "DISAHKAN ✓"!');
+        } catch (err) {
+            alert('Ralat pengesahan di Firebase: ' + err.message);
+        }
+    }
+
+    function collectFormData() {
+        const kriteriaList = [];
+        for (let i = 1; i <= 11; i++) {
+            const radio = document.querySelector(`input[name="kriteria_${i}"]:checked`);
+            const catatan = document.querySelector(`textarea[name="catatan_${i}"]`).value;
+            const tindakan = document.querySelector(`textarea[name="tindakan_${i}"]`).value;
+            kriteriaList.push({
+                bil: i,
+                jawapan: radio ? radio.value : '',
+                catatan: catatan,
+                tindakan: tindakan
+            });
+        }
+
+        const generatedId = currentActiveRecordId ? String(currentActiveRecordId) : String(Date.now());
+
+        return {
+            id: generatedId,
+            createdAt: Date.now(),
+            tahun: document.getElementById('tahunPemantauan').value,
+            namaPP: document.getElementById('namaPP').value,
+            tarikh: document.getElementById('tarikh').value,
+            tahap: document.getElementById('tahapSelect').value,
+            kodCU: document.getElementById('kodCU').value,
+            kelas: document.getElementById('kelas').value,
+            kelasTahap: `${document.getElementById('kelas').value} (${document.getElementById('tahapSelect').value})`,
+            komenPengarah: document.getElementById('komenPengarah').value,
+            kriteria: kriteriaList,
+            status: "Dalam Proses"
+        };
+    }
+
+    function renderSavedRecords() {
+        const records = window.getAllCachedRecords ? window.getAllCachedRecords() : [];
+        const tbody = document.getElementById('savedRecordsBody');
+        
+        if (records.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center" style="color: #6c757d;">Tiada rekod disimpan lagi.</td></tr>';
+            return;
+        }
+
+        tbody.innerHTML = '';
+        records.forEach((rec, index) => {
+            const tr = document.createElement('tr');
+            const isVerified = rec.status && rec.status.includes("DISAHKAN");
+            const safeId = String(rec.id).replace(/'/g, "\'");
+            tr.innerHTML = `
+                <td class="text-center">${index + 1}</td>
+                <td><strong>${rec.namaPP}</strong></td>
+                <td class="text-center">${rec.tarikh || '-'}</td>
+                <td class="text-center">${rec.kodCU || '-'}<br><small style="color:#555;">${rec.kelas ? rec.kelas + ' - ' + (rec.tahap || '') : (rec.kelasTahap || '-')}</small></td>
+                <td class="text-center"><span style="${isVerified ? 'background:#28a745; color:white; padding:3px 8px; border-radius:4px; font-size:11px; font-weight:bold;' : 'background:#ffc107; color:#333; padding:3px 8px; border-radius:4px; font-size:11px; font-weight:bold;'}">${rec.status}</span></td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-warning" style="padding: 5px 8px; font-size: 11px;" onclick="loadRecordForReview('${safeId}')">Buka / Sahkan</button>
+                    <button type="button" class="btn btn-info" style="padding: 5px 8px; font-size: 11px;" onclick="loadAndPrintRecord('${safeId}')">Cetak</button>
+                    <button type="button" class="btn btn-danger" style="padding: 5px 6px; font-size: 11px;" onclick="deleteRecord('${safeId}')">X</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function loadRecordForReview(id) {
+        const records = window.getAllCachedRecords();
+        const rec = records.find(r => String(r.id) === String(id));
+        if (!rec) return;
+
+        currentActiveRecordId = String(rec.id);
+        document.getElementById('tahunPemantauan').value = rec.tahun;
+        document.getElementById('namaPP').value = rec.namaPP;
+        document.getElementById('tarikh').value = rec.tarikh;
+        document.getElementById('tahapSelect').value = rec.tahap || '';
+        updateCUList(rec.kodCU || '');
+        document.getElementById('kelas').value = rec.kelas || rec.kelasTahap || '';
+        document.getElementById('komenPengarah').value = rec.komenPengarah || '';
+
+        if (rec.kriteria) {
+            rec.kriteria.forEach(item => {
+                const radios = document.querySelectorAll(`input[name="kriteria_${item.bil}"]`);
+                radios.forEach(r => {
+                    r.checked = (r.value === item.jawapan);
+                });
+                document.querySelector(`textarea[name="catatan_${item.bil}"]`).value = item.catatan || '';
+                document.querySelector(`textarea[name="tindakan_${item.bil}"]`).value = item.tindakan || '';
+            });
+        }
+
+        document.getElementById('displaySignPP').innerText = rec.namaPP;
+        document.getElementById('ppCheckboxName').innerText = rec.namaPP;
+        document.getElementById('agreePP').checked = false;
+
+        if (rec.status && rec.status.includes("DISAHKAN")) {
+            currentWorkflowStage = 'disahkan';
+            document.getElementById('currentRole').value = 'pengarah';
+        } else if (rec.status && rec.status.includes("Menunggu Persetujuan PP")) {
+            currentWorkflowStage = 'semakan_pp';
+            document.getElementById('currentRole').value = 'pp';
+        } else {
+            currentWorkflowStage = 'menunggu_pengarah';
+            document.getElementById('currentRole').value = 'pengarah';
+        }
+
+        switchRole();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function loadAndPrintRecord(id) {
+        loadRecordForReview(id);
+        setTimeout(() => {
+            window.print();
+        }, 300);
+    }
+
+    async function deleteRecord(id) {
+        if (!confirm('Padam rekod ini daripada Firebase?')) return;
+        try {
+            await window.deleteRecordFromCloud(id);
+            if (String(currentActiveRecordId) === String(id)) {
+                prepareNewPP();
+            }
+        } catch (err) {
+            alert('Ralat memadam rekod: ' + err.message);
+        }
+    }
+
+    async function clearAllStorage() {
+        if (!confirm('Adakah anda pasti mahu memadam SEMUA rekod daripada Firebase?')) return;
+        try {
+            await window.clearAllCloudRecords();
+            prepareNewPP();
+        } catch (err) {
+            alert('Ralat memadam semua rekod: ' + err.message);
+        }
+    }
+
+    function prepareNewPP() {
+        currentActiveRecordId = null;
+        currentWorkflowStage = 'draf';
+        document.getElementById('pemantauanForm').reset();
+        document.getElementById('namaPP').value = "";
+        document.getElementById('tahapSelect').value = "";
+        updateCUList();
+        document.getElementById('displaySignPP').innerText = "-";
+        document.getElementById('ppCheckboxName').innerText = "-";
+        document.getElementById('currentRole').value = 'koordinator';
+        document.getElementById('agreePP').checked = false;
+        switchRole();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function confirmReset() {
+        if (!confirm('Kosongkan borang semasa untuk mengisi penilaian Pegawai Penilai baru?')) {
+            return;
+        }
+        prepareNewPP();
+    }
+</script>
+
+</body>
+</html>
